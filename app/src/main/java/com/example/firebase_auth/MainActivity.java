@@ -3,11 +3,15 @@ package com.example.firebase_auth;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.firebase_auth.databinding.ActivityMainBinding;
@@ -39,6 +43,8 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     FirebaseAuth mAuth;
+    FrameLayout frame;
+    Fragment fragment;
     private static final int REQ_ONE_TAP = 2;
     private boolean showOneTapUI = true;
     String mVerificationId;
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     SignInCredential credential;
     SignInCredential googleCredential;
     String idToken;
-    Intent data;
+
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private GoogleSignInClient googleSignInClient;
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signin();
+                addFragment(new Add_Product());
             }
         });
         binding.btnotp.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         .requestEmail()
                         .build();
 
+
                 // Initialize sign in client
                 googleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
                 Intent intent = googleSignInClient.getSignInIntent();
@@ -154,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void addFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame,fragment);
+        transaction.commit();
+    }
 
 
     @Override

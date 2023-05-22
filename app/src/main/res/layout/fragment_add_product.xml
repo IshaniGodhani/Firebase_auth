@@ -8,56 +8,72 @@
     android:gravity="center"
     android:background="@android:color/transparent"
     tools:context=".Add_Product">
-
-    <EditText
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pro_name"
-        android:hint="Product Name"
-        android:layout_margin="20dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pro_price"
-        android:hint="Product price"
-        android:layout_margin="20dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pro_des"
-        android:hint="Product description"
-        android:layout_margin="20dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/frame"
+        android:layout_margin="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:text="Browse For Image"
-            android:textSize="30dp"/>
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:id="@+id/pro_Image"
-            android:scaleType="centerCrop"
-            android:background="#66B2EF"
-            android:src="@drawable/baseline_image_24" />
+            android:orientation="vertical"
+            android:gravity="center">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pro_name"
+                android:hint="Product Name"
+                android:layout_margin="20dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pro_price"
+                android:hint="Product price"
+                android:layout_margin="20dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pro_des"
+                android:hint="Product description"
+                android:layout_margin="20dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="center"
+                    android:text="Browse For Image"
+                    android:textSize="30dp"/>
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:id="@+id/pro_Image"
+                    android:scaleType="centerCrop"
+                    android:background="#66B2EF"
+                    android:src="@drawable/baseline_image_24" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnadd_pro"
-        android:text="Add Product"
-        android:layout_marginTop="40dp"
-        android:background="@color/black"
-        app:backgroundTint="@null"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnadd_pro"
+                android:text="Add Product"
+                android:layout_marginTop="40dp"
+                android:background="@color/black"
+                app:backgroundTint="@null"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
 
 
 
