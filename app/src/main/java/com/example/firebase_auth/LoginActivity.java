@@ -15,9 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.firebase_auth.databinding.ActivityMainBinding;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,19 +37,12 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     FirebaseAuth mAuth;
     FrameLayout frame;
     Fragment fragment;
-    private static final int REQ_ONE_TAP = 2;
-    private boolean showOneTapUI = true;
     String mVerificationId;
-    SignInClient oneTapClient;
-    BeginSignInRequest signInRequest;
-    SignInCredential credential;
-    SignInCredential googleCredential;
-    String idToken;
 
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -77,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signin();
-                addFragment(new Add_Product());
+                Intent intent=new Intent(LoginActivity.this,HomepageActivity.class);
+                startActivity(intent);
             }
         });
         binding.btnotp.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                                            @NonNull PhoneAuthProvider.ForceResendingToken token) {
 
                         Log.d("eee", "onCodeSent:" + verificationId);
-                        Toast.makeText(MainActivity.this, "code sent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "code sent", Toast.LENGTH_SHORT).show();
 
                         // Save verification ID and resending token so we can use them later
                          mVerificationId = verificationId;
@@ -126,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         PhoneAuthOptions.newBuilder(mAuth)
                                 .setPhoneNumber(binding.phone.getText().toString())       // Phone number to verify
                                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                                .setActivity(MainActivity.this)                 // (optional) Activity for callback binding
+                                .setActivity(LoginActivity.this)                 // (optional) Activity for callback binding
                                 // If no activity is passed, reCAPTCHA verification can not be used.
                                 .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                                 .build();
@@ -153,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 // Initialize sign in client
-                googleSignInClient = GoogleSignIn.getClient(MainActivity.this, googleSignInOptions);
+                googleSignInClient = GoogleSignIn.getClient(LoginActivity.this, googleSignInOptions);
                 Intent intent = googleSignInClient.getSignInIntent();
                 // Start activity for result
                 startActivityForResult(intent, 100);
@@ -162,12 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addFragment(Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame,fragment);
-        transaction.commit();
-    }
+
 
 
     @Override
@@ -250,13 +236,13 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("ddd", "signInWithEmail:success");
-                            Toast.makeText(MainActivity.this, "Authentication Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Authentication Success", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                            // updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("ddd", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                            // updateUI(null);
                         }
@@ -276,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                             //updateUI(user);
                         } else {
                             Log.w("ccc", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
