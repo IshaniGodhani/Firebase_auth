@@ -59,6 +59,9 @@ public class Add_Product extends Fragment {
     private void addproduct() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Products:");
+        String key = myRef.child("key").push().getKey();
+
+
 
 
     }

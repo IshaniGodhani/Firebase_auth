@@ -131,6 +131,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,binding.otp.getText().toString());
                 signInWithPhoneAuthCredential(credential);
+                Intent intent=new Intent(LoginActivity.this,HomepageActivity.class);
+                startActivity(intent);
             }
         });
         binding.gsignin.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +187,8 @@ public class LoginActivity extends AppCompatActivity {
                                     // When task is successful redirect to profile activity display Toast
                                     //startActivity(new Intent(MainActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                     displayToast("Firebase authentication successful");
+                                    Intent intent=new Intent(LoginActivity.this,HomepageActivity.class);
+                                    startActivity(intent);
                                 } else {
                                     // When task is unsuccessful display Toast
                                     displayToast("Authentication Failed :" + task.getException().getMessage());
