@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class Add_Product extends Fragment {
     ImageView imageView;
 
     Button addpro;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +41,7 @@ public class Add_Product extends Fragment {
         et3=view.findViewById(R.id.pro_des);
         imageView=view.findViewById(R.id.pro_Image);
         addpro=view.findViewById(R.id.btnadd_pro);
+        recyclerView=view.findViewById(R.id.recyclerview);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

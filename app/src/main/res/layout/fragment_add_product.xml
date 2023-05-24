@@ -5,49 +5,43 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
-    android:id="@+id/frame1"
     android:background="@android:color/transparent"
     tools:context=".Add_Product">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/pro_name"
                 android:hint="Product Name"
-                android:layout_margin="20dp"/>
+                android:layout_margin="10dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/pro_price"
                 android:hint="Product price"
-                android:layout_margin="20dp"/>
+                android:layout_margin="10dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/pro_des"
                 android:hint="Product description"
-                android:layout_margin="20dp"/>
+                android:layout_margin="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginStart="70dp"
                 android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:foregroundGravity="center"
                     android:text="Browse For Image"
-                    android:textSize="30dp"/>
+                    android:textSize="20dp"/>
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:gravity="center"
-                    android:layout_marginTop="30dp"
                     android:id="@+id/pro_Image"
                     android:scaleType="centerCrop"
                     android:background="#66B2EF"
@@ -60,16 +54,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btnadd_pro"
                 android:text="Add Product"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="80dp"
                 android:background="@color/black"
                 app:backgroundTint="@null"/>
-
-        </LinearLayout>
-
-
-
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerview"
+        android:layout_margin="10dp"/>
 
 
 
