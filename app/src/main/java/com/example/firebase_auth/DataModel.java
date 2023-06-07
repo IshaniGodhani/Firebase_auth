@@ -5,12 +5,14 @@ public class DataModel
     String id;
     String proName;
     String proPrice;
+    String proDes;
     String imgUrl;
 
-    public DataModel(String id, String proName, String proPrice, String imgUrl) {
+    public DataModel(String id, String proName, String proPrice,String proDes, String imgUrl) {
         this.id = id;
         this.proName = proName;
         this.proPrice = proPrice;
+        this.proDes=proDes;
         this.imgUrl = imgUrl;
     }
 
@@ -23,6 +25,14 @@ public class DataModel
     }
 
     public DataModel() {
+    }
+
+    public String getProDes() {
+        return proDes;
+    }
+
+    public void setProDes(String proDes) {
+        this.proDes = proDes;
     }
 
     public String getId() {

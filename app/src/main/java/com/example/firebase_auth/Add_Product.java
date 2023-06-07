@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.firebase_auth.databinding.ActivityMainBinding;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +33,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -48,6 +52,9 @@ public class Add_Product extends Fragment {
     RecyclerView recyclerView;
     StorageReference bucket;
     StorageReference folder;
+    private ProductList adapter;
+    private DatabaseReference mbase;
+    private Query query;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +67,10 @@ public class Add_Product extends Fragment {
         imageView=view.findViewById(R.id.pro_Image);
         addpro=view.findViewById(R.id.btnadd_pro);
         recyclerView=view.findViewById(R.id.recyclerview);
+        query = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Products")
+                .limitToLast(50);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,12 +78,26 @@ public class Add_Product extends Fragment {
                         .start(getContext(), Add_Product.this);
             }
         });
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext()));
 
+        // It is a class provide by the FirebaseUI to make a
+        // query in the database to fetch appropriate data
+        FirebaseRecyclerOptions<DataModel> options
+                = new FirebaseRecyclerOptions.Builder<DataModel>()
+                .setQuery(query,DataModel.class)
+                .build();
+        // Connecting object of required Adapter class to
+        // the Adapter class itself
+        adapter = new ProductList(options);
         addpro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("TTT", "addproduct: ");
                 addproduct();
+
+                // Connecting Adapter class with the Recycler view*/
+                recyclerView.setAdapter(adapter);
             }
         });
 
@@ -128,7 +153,7 @@ public class Add_Product extends Fragment {
                             DatabaseReference myRef = database.getReference("Products").push();
                             String id=myRef.getKey();
 
-                            DataModel dataModel=new DataModel(id,"DEF","1456",imgUrl);
+                            DataModel dataModel=new DataModel(id,et1.getText().toString(),et2.getText().toString(),et3.getText().toString(),imgUrl);
                             myRef.setValue(dataModel);
                         } else {
                             // Handle failures
@@ -141,9 +166,6 @@ public class Add_Product extends Fragment {
 
             }
         });
-
-
-
 
     }
 
@@ -160,5 +182,20 @@ public class Add_Product extends Fragment {
             }
         }
 
+    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    // Function to tell the app to stop getting
+    // data from database on stopping of the activity
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        adapter.stopListening();
     }
 }
